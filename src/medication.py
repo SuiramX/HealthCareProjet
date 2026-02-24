@@ -90,5 +90,29 @@ class Medication:
         
         return None
 
+    def calculate_dosage(self, base_dosage: float, patient_weight: float, standard_weight: float = 70.0) -> float:
+        """Calculer la posologie automatique selon le poids du patient"""
+        if not isinstance(base_dosage, (int, float)) or base_dosage <= 0:
+            raise ValueError("Posologie de base doit être un nombre positif.")
+        if not isinstance(patient_weight, (int, float)) or patient_weight <= 0:
+            raise ValueError("Poids du patient doit être un nombre positif.")
+        if standard_weight <= 0:
+            raise ValueError("Poids standard doit être un nombre positif.")
+        
+        calculated = (base_dosage * patient_weight) / standard_weight
+        return round(calculated, 2)
+    
+    def validate_prescription_fields(self, medication_name: str, dosage: str, frequency: str, duration_days: int):
+        """Valider les champs obligatoires d'une prescription"""
+        if not medication_name or not isinstance(medication_name, str):
+            raise ValueError("Le nom du médicament est obligatoire.")
+        if not dosage or not isinstance(dosage, str):
+            raise ValueError("La posologie est obligatoire.")
+        if not frequency or not isinstance(frequency, str):
+            raise ValueError("La fréquence est obligatoire.")
+        if not duration_days or not isinstance(duration_days, int) or duration_days <= 0:
+            raise ValueError("La durée doit être un entier positif.")
+        return True
+
     def __str__(self):
         return f"Medication Manager"
