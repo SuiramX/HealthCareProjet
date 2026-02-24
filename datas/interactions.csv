@@ -1,0 +1,11 @@
+interaction_id,medication_1,medication_2,severity
+1,Metformin,Lisinopril,Low
+2,Metformin,Ibuprofen,Medium
+3,Lisinopril,Ibuprofen,High
+4,Atorvastatin,Albuterol,Low
+5,Metoprolol,Albuterol,High
+6,Prednisone,Metformin,Medium
+7,Levothyroxine,Omeprazole,Medium
+8,Atorvastatin,Prednisone,Low
+9,Montelukast,Ibuprofen,Low
+10,Metoprolol,Levothyroxine,Medium

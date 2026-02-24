@@ -1,0 +1,9 @@
+patient_id,name,age,email,phone,allergies,medical_history
+1,John Doe,45,john.doe@email.com,555-1234,Penicillin;Sulfa,Hypertension;Diabetes
+2,Jane Smith,32,jane.smith@email.com,555-5678,Aspirin,Asthma
+3,Bob Johnson,58,bob.johnson@email.com,555-9999,None,Heart Disease;High Cholesterol
+4,Alice Brown,29,alice.brown@email.com,555-4444,Latex,None
+5,Michael Davis,67,michael.davis@email.com,555-7777,Codeine;NSAIDs,Arthritis;Kidney Disease
+6,Sarah Wilson,41,sarah.wilson@email.com,555-3333,None,Thyroid Disorder
+7,David Miller,53,david.miller@email.com,555-6666,Penicillin,COPD;Hypertension
+8,Emily Garcia,36,emily.garcia@email.com,555-2222,Shellfish,None
