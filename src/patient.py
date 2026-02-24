@@ -41,37 +41,40 @@ class Patient:
             'phone': phone,
             'medical_history': medical_history or [],
             'allergies': allergies or [],
-            'status': 'active'
+            'status': 'active',
+            'history': []
         }
         return patient_id
 
     def get_patient_info(self, patient_id: int):
         return self.patients.get(patient_id, "Patient not found")
 
-    def update_patient(self, patient_id: int, **kwargs):
+    def update_patient(self, patient_id: int, phone: str = None, email: str = None, numero_secu: str = None):
         if patient_id not in self.patients:
             raise ValueError("Patient introuvable.")
             
         patient = self.patients[patient_id]
         
-        # L'identifiant unique (numero_secu) ne doit jamais changer
-        if 'numero_secu' in kwargs and kwargs['numero_secu'] != patient['numero_secu']:
+        if numero_secu is not None and numero_secu != patient['numero_secu']:
              raise ValueError("L'identifiant unique (numéro de sécu) ne peut pas être modifié.")
 
-        # Validation spécifique pour le téléphone (simple Regex par exemple)
-        if 'phone' in kwargs and kwargs['phone']:
-            if not re.match(r'^\+?[\d\s-]{10,}$', kwargs['phone']):
-                raise ValueError("Le format du numéro de téléphone est invalide.")
-                
-        # Historisation de la modification
-        if 'history' not in patient:
-            patient['history'] = []
+        if phone is not None and not re.match(r'^\+?[\d\s-]{10,}$', phone):
+            raise ValueError("Le format du numéro de téléphone est invalide.")
             
-        modifs = [f"{k}: {v}" for k, v in kwargs.items()]
-        log_entry = f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Modification: {', '.join(modifs)}"
-        patient['history'].append(log_entry)
+        modifs = []
+        if phone is not None:
+            modifs.append(f"phone: {phone}")
+            patient['phone'] = phone
+        if email is not None:
+            modifs.append(f"email: {email}")
+            patient['email'] = email
+        if numero_secu is not None:
+            modifs.append(f"numero_secu: {numero_secu}")
+            patient['numero_secu'] = numero_secu
+            
+        if modifs:
+            patient['history'].append(f"Modification: {', '.join(modifs)}")
 
-        patient.update(kwargs)
         return True
 
     def archive_patient(self, patient_id: int):
@@ -84,13 +87,7 @@ class Patient:
             raise ValueError("Ce dossier est déjà archivé.")
             
         patient['status'] = 'archived'
-        
-        # Log de l'archivage
-        if 'history' not in patient:
-            patient['history'] = []
-            
-        log_entry = f"[{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}] Archivage du dossier"
-        patient['history'].append(log_entry)
+        patient['history'].append("Archivage")
         
         return True
 
